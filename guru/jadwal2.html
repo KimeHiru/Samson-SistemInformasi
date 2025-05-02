@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Pelajaran - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="../asset/css/style.css">
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <h4>SMK Hang Tuah 1 Jakarta</h4>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-guru.html">Dashboard</a></li>
+                <li><a href="pengumuman2.html">Pengumuman</a></li>
+                <li><a href="input-nilai.html">Input Nilai</a></li>
+                <li><a href="jadwal2.html" class="active">Jadwal</a></li>
+                <li><a href="profil2.html">Profil</a></li>
+            </ul>
+            
+            <div class="logout-btn">
+                <a href="../index.html">Logout</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Jadwal Pelajaran</h2>
+            
+            <div class="announcement-box">
+                <h3>Pilih Kelas</h3>
+                <div style="display: flex; margin-top: 15px; gap: 15px;">
+                    <div style="flex: 1;">
+                        <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="X PPLG 1">X PPLG 1</option>
+                            <option value="X PPLG 2">X PPLG 2</option>
+                            <option value="XI PPLG 1" selected>XI PPLG 1</option>
+                            <option value="XI PPLG 2">XI PPLG 2</option>
+                            <option value="XI MPLB">XI MPLB</option>
+                            <option value="XII PPLG 1">XII PPLG 1</option>
+                            <option value="XII PPLG 2">XII PPLG 2</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="all" selected>Semua Hari</option>
+                            <option value="senin">Senin</option>
+                            <option value="selasa">Selasa</option>
+                            <option value="rabu">Rabu</option>
+                            <option value="kamis">Kamis</option>
+                            <option value="jumat">Jumat</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button style="background-color: #0f3057; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Tampilkan</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="announcement-box">
+                <h3>Jadwal Kelas XI PPLG 1</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Hari</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Jam</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Mata Pelajaran</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Guru</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Ruangan</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;" rowspan="3">Senin</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">07.00 - 07.45</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Upacara</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">-</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Lapangan</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">08.00 - 09.40</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PBO</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bu Rina</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Lab 1</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">09.40 - 11.20</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Matematika</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pak Deni</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">R.11B</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;" rowspan="2">Selasa</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">07.30 - 09.50</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">KKRPL</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pak Ahmad</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Lab 2</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">10.00 - 11.40</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bahasa Inggris</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bu Sarah</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">R.11B</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;" rowspan="2">Rabu</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">07.30 - 09.50</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pemrograman Dasar</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bu Farah</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Lab 1</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">10.00 - 11.40</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PKK</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pak Rizal</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">R.11B</td>
+                    </tr>
+                </table>
+            </div>
+            
+           
+        </div>
+    </div>
+</body>
+</html>

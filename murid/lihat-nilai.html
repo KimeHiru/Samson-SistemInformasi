@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lihat Nilai - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="../asset/css/style.css">
+    <!-- Include jsPDF library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        .download-btn {
+            display: inline-block;
+            background-color: #0f3057;
+            color: #fff;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .download-btn:hover {
+            background-color: #0a1f33;
+            transform: translateY(-2px);
+        }
+
+        .download-btn img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .semester-selector {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .semester-btn {
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: normal;
+        }
+
+        .semester-btn.active {
+            background-color: #0f3057;
+            color: white;
+            border-color: #0f3057;
+            font-weight: bold;
+        }
+
+        .semester-content {
+            display: none;
+        }
+
+        .semester-content.active {
+            display: block;
+        }
+
+        .summary-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0f3057;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        .summary-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0f3057;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            font-weight: normal;
+        }
+
+        .summary-value {
+            font-weight: bold;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #0f3057;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <h4>SMK Hang Tuah 1 Jakarta</h4>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-murid.html">Dashboard</a></li>
+                <li><a href="pengumuman3.html">Pengumuman</a></li>
+                <li><a href="lihat-nilai.html" class="active">Lihat Nilai</a></li>
+                <li><a href="jadwal.html">Jadwal</a></li>
+                <li><a href="profil3.html">Profil</a></li>
+            </ul>
+            
+            <div class="logout-btn">
+                <a href="../index.html">Logout</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Nilai Akademik</h2>
+            
+            <div class="announcement-box">
+                <h3>Informasi Siswa</h3>
+                <div style="display: flex; margin-top: 15px; gap: 30px;">
+                    <div>
+                        <p><strong>Nama:</strong> Ahmad Fikri</p>
+                        <p><strong>NISN:</strong> 12345</p>
+                    </div>
+                    <div>
+                        <p><strong>Kelas:</strong> XI PPLG 1</p>
+                        <p><strong>Tahun Ajaran:</strong> 2024/2025</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="announcement-box">
+                <div class="semester-selector">
+                    <button class="semester-btn active" onclick="showSemester('ganjil')">Semester Ganjil</button>
+                    <button class="semester-btn" onclick="showSemester('genap')">Semester Genap</button>
+                </div>
+                
+                <div id="semester-ganjil" class="semester-content active">
+                    <h3>Semester Ganjil</h3>
+                    <table id="nilai-ganjil" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <thead>
+                            <tr style="background-color: #f2f2f2;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Mata Pelajaran</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Tugas</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UTS</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UAS</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Nilai Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pemrograman Dasar</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">80</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">85</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">90</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">85</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">PKK</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">85</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">88</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">92</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">90</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">KKRPL</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">78</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">82</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">88</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">83</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">PBO</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">75</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">80</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">85</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">80</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bahasa Indonesia</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">80</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">78</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">82</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">80</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Matematika</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">70</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">75</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">80</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">76</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="summary-box">
+                        <div class="summary-title">Ringkasan Semester Ganjil</div>
+                        <div class="summary-item">
+                            <span class="summary-label">Rata-rata Nilai:</span>
+                            <span class="summary-value">82,3</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Peringkat di Kelas:</span>
+                            <span class="summary-value">5 dari 36</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Nilai Tertinggi:</span>
+                            <span class="summary-value">PKK (90)</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Nilai Terendah:</span>
+                            <span class="summary-value">Matematika (76)</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Absensi:</span>
+                            <span class="summary-value">2 hari</span>
+                        </div>
+                    </div>
+
+                    <button class="download-btn" onclick="generateRaporPDF('ganjil')">
+                        <img src="/api/placeholder/16/16" alt="PDF Icon"> Download Rapor Bayangan
+                    </button>
+                </div>
+                
+                <div id="semester-genap" class="semester-content">
+                    <h3>Semester Genap</h3>
+                    <table id="nilai-genap" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <thead>
+                            <tr style="background-color: #f2f2f2;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Mata Pelajaran</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Tugas</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UTS</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UAS</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Nilai Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pemrograman Web</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">82</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">88</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Basis Data</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">78</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">75</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Mobile Programming</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">90</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">87</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">-</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bahasa Inggris</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">85</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">83</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center;">-</td>
+                                <td style="padding: 12px; border-bottom: 1px solid #ddd; text-align: center; font-weight: bold;">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="summary-box">
+                        <div class="summary-title">Ringkasan Semester Genap (Sementara)</div>
+                        <div class="summary-item">
+                            <span class="summary-label">Rata-rata Nilai UTS:</span>
+                            <span class="summary-value">83,25</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Nilai Tertinggi:</span>
+                            <span class="summary-value">Mobile Programming (87)</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Absensi (sampai saat ini):</span>
+                            <span class="summary-value">1 hari</span>
+                        </div>
+                    </div>
+
+                    <button class="download-btn" onclick="showUnavailableAlert()" style="opacity: 0.7;">
+                        <img src="/api/placeholder/16/16" alt="PDF Icon"> Download Rapor Bayangan (Belum Tersedia)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Make jsPDF available in the global scope
+        const { jsPDF } = window.jspdf;
+        
+        function showSemester(semester) {
+            // Hide all semester contents
+            const contents = document.querySelectorAll('.semester-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Deactivate all buttons
+            const buttons = document.querySelectorAll('.semester-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            // Activate selected semester
+            document.getElementById('semester-' + semester).classList.add('active');
+            
+            // Activate selected button
+            const clickedButton = event.target;
+            clickedButton.classList.add('active');
+        }
+        
+        function showUnavailableAlert() {
+            alert('Rapor Bayangan Semester Genap belum tersedia. Rapor akan tersedia setelah UAS.');
+        }
+        
+        function showLoading() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+        
+        function generateRaporPDF(semester) {
+            showLoading();
+            
+            // Simulate processing time
+            setTimeout(() => {
+                if (semester === 'ganjil') {
+                    createGanjilPDF();
+                } else {
+                    // This case shouldn't be reached due to the disabled button
+                    showUnavailableAlert();
+                }
+                hideLoading();
+            }, 1000);
+        }
+        
+        function createGanjilPDF() {
+            // Create a new PDF document
+            const doc = new jsPDF();
+            
+            // Add school header
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.text('SMK HANG TUAH 1 JAKARTA', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Jl. Gunung Sahari No. 52, Jakarta Pusat', 105, 27, { align: 'center' });
+            doc.text('Telp: (021) 123-4567 | Email: smkhangtuah1@jakarta.sch.id', 105, 33, { align: 'center' });
+            
+            // Add separator line
+            doc.setLineWidth(0.5);
+            doc.line(20, 37, 190, 37);
+            
+            // Add document title
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('RAPOR BAYANGAN', 105, 47, { align: 'center' });
+            doc.text('SEMESTER GANJIL TAHUN AJARAN 2024/2025', 105, 55, { align: 'center' });
+            
+            // Add student information
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            
+            doc.text('Nama Siswa', 25, 70);
+            doc.text(':', 70, 70);
+            doc.text('Ahmad Fikri', 75, 70);
+            
+            doc.text('NISN', 25, 77);
+            doc.text(':', 70, 77);
+            doc.text('12345', 75, 77);
+            
+            doc.text('Kelas', 25, 84);
+            doc.text(':', 70, 84);
+            doc.text('XI PPLG 1', 75, 84);
+            
+            doc.text('Wali Kelas', 25, 91);
+            doc.text(':', 70, 91);
+            doc.text('Bu Rina', 75, 91);
+            
+            // Add grade table
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('DAFTAR NILAI', 105, 105, { align: 'center' });
+            
+            // Extract data from the table
+            const tableData = [];
+            const headers = ['Mata Pelajaran', 'Tugas', 'UTS', 'UAS', 'Nilai Akhir'];
+            tableData.push(headers);
+            
+            const table = document.getElementById('nilai-ganjil');
+            const rows = table.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowData = [];
+                cells.forEach(cell => {
+                    rowData.push(cell.innerText);
+                });
+                tableData.push(rowData);
+            });
+            
+            // Create table in PDF
+            doc.autoTable({
+                startY: 110,
+                head: [tableData[0]],
+                body: tableData.slice(1),
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [15, 48, 87],
+                    textColor: [255, 255, 255]
+                },
+                styles: {
+                    fontSize: 10
+                }
+            });
+            
+            // Add summary
+            const finalY = doc.lastAutoTable.finalY + 10;
+            
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('RINGKASAN AKADEMIK', 25, finalY);
+            
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Rata-rata Nilai:', 25, finalY + 10);
+            doc.text('82,3', 100, finalY + 10);
+            
+            doc.text('Peringkat di Kelas:', 25, finalY + 17);
+            doc.text('5 dari 36', 100, finalY + 17);
+            
+            doc.text('Nilai Tertinggi:', 25, finalY + 24);
+            doc.text('PKK (90)', 100, finalY + 24);
+            
+            doc.text('Nilai Terendah:', 25, finalY + 31);
+            doc.text('Matematika (76)', 100, finalY + 31);
+            
+            doc.text('Absensi:', 25, finalY + 38);
+            doc.text('2 hari', 100, finalY + 38);
+            
+            // Add note
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'italic');
+            doc.text('* Rapor Bayangan ini merupakan laporan sementara untuk memantau perkembangan siswa', 25, finalY + 52);
+            
+            // Add signatures
+            const signatureY = finalY + 65;
+            
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Jakarta, 23 April 2025', 150, signatureY);
+            
+            doc.text('Wali Kelas', 40, signatureY + 5);
+            doc.text('Orang Tua/Wali', 150, signatureY + 5);
+            
+            doc.text('(Bu Rina)', 40, signatureY + 30);
+            doc.text('(........................)', 150, signatureY + 30);
+            
+            // Save the PDF
+            doc.save('Rapor_Bayangan_Ahmad_Fikri_XI_PPLG1_Ganjil.pdf');
+        }
+    </script>
+</body>
+</html>

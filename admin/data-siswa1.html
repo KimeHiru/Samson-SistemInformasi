@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="../asset/css/style.css">
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <h4>SMK Hang Tuah 1 Jakarta</h4>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="dashboard-admin.html">Dashboard</a></li>
+                <li><a href="pengumuman1.html">Pengumuman</a></li>
+                <li><a href="data-siswa1.html" class="active">Data Siswa</a></li>
+                <li><a href="data-guru1.html">Data Guru</a></li>
+                <li><a href="data-jurusan1.html">Jurusan</a></li>
+                <li><a href="jadwal1.html">Jadwal</a></li>
+                <li><a href="profil1.html">Profil</a></li>
+            </ul>
+            
+            <div class="logout-btn">
+                <a href="../index.html">Logout</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Data Siswa</h2>
+            
+            <div class="announcement-box">
+                <h3>Filter Data</h3>
+                <div style="display: flex; margin-top: 15px; margin-bottom: 20px; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Jurusan</label>
+                        <select style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">Semua Jurusan</option>
+                            <option value="PPLG">PPLG</option>
+                            <option value="DKV">DKV</option>
+                            <option value="AKL">AKL</option>
+                            <option value="MPLB">MPLB</option>
+                            <option value="BR">BR</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Kelas</label>
+                        <select style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">Semua Kelas</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
+                        </select>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+            <div class="announcement-box">
+                <h3>Daftar Siswa</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">NISN</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Nama</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Kelas</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Jurusan</th>
+
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">12345</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Ahmad Fikri</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">XI PPLG 1</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PPLG</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">12346</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Budi Santoso</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">XI PPLG 1</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PPLG</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">12347</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Siti Nurhaliza</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">XI PPLG 2</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PPLG</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                           
+                        </td>
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 20px; text-align: right;">
+                    <a href="#" style="background-color: #0f3057; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;">Tambah Siswa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

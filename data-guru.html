@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Guru - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <h4>SMK Hang Tuah 1 Jakarta</h4>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+              <li><a href="pengumuman.html">Pengumuman</a></li>
+                <li><a href="data-siswa.html">Data Siswa</a></li>
+                <li><a href="data-guru.html" class="active">Data Guru</a></li>
+                <li><a href="data-jurusan.html">Jurusan</a></li>
+                <li><a href="jadwal.html">Jadwal</a></li>
+
+                <li><a href="#">Profil</a></li>
+            </ul>
+            
+            <div class="logout-btn">
+                <a href="index.html">Logout</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Data Guru</h2>
+            
+            <div class="announcement-box">
+                <h3>Filter Data</h3>
+                <div style="display: flex; margin-top: 15px; margin-bottom: 20px; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Mata Pelajaran</label>
+                        <select style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">Semua Mapel</option>
+                            <option value="PBO">PBO</option>
+                            <option value="KKRPL">KKRPL</option>
+                            <option value="Pemrograman Dasar">Pemrograman Dasar</option>
+                            <option value="Matematika">Matematika</option>
+                        </select>
+                    </div>
+
+                    <div style="align-self: flex-end;">
+                        <button style="background-color: #0f3057; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Cari</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="announcement-box">
+                <h3>Daftar Guru</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">NIP</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Nama</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Mata Pelajaran</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Email</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">1989xx</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bu Farah</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">PBO</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">farah@smkhangtuah1.sch.id</td>
+                        
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">1990xx</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pak Ahmad</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">KKRPL</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">ahmad@smkhangtuah1.sch.id</td>
+                        
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">1992xx</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Bu Rina</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">Pemrograman Dasar</td>
+                        <td style="padding: 12px; border-bottom: 1px solid #ddd;">rina@smkhangtuah1.sch.id</td>
+                        
+                    </tr>
+                </table>
+                
+                <div style="margin-top: 20px; text-align: right;">
+                    <a href="#" style="background-color: #0f3057; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;">Tambah Guru</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

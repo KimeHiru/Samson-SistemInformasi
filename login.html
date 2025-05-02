@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+    <style>
+        /* Loading Overlay Styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e9f5fb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .loading-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        
+        .loading-title {
+            color: #0f3057;
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .loading-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        
+        .loading-spinner div {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border: 8px solid #6da5c0;
+            border-radius: 50%;
+            animation: loading-spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #6da5c0 transparent transparent transparent;
+        }
+        
+        .loading-spinner div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        
+        .loading-spinner div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        
+        .loading-spinner div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+        
+        .loading-text {
+            margin-top: 30px;
+            color: #0f3057;
+            font-size: 18px;
+        }
+        
+        .loading-progress {
+            width: 300px;
+            height: 8px;
+            background-color: #d1e6f3;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .loading-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #6da5c0;
+            border-radius: 4px;
+            animation: progress 2s ease-in-out forwards;
+        }
+        
+        @keyframes loading-spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body class="login-body">
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-container">
+            <img src="asset/logo.png" alt="Logo SMK Hang Tuah" class="loading-logo">
+            <h3 class="loading-title">SMK Hang Tuah 1 Jakarta</h3>
+            <p class="loading-subtitle">Sistem Informasi Akademik</p>
+            
+            <div class="loading-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            
+            <div class="loading-text">Memuat Dashboard...</div>
+            
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-box">
+            <img src="asset/logo.png" alt="Logo SMK Hang Tuah" class="login-logo">
+            <h3>SMK Hang Tuah 1 Jakarta</h3>
+            <p class="sistem-text">Sistem Informasi Akademik</p>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Masukkan Username">
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Masukkan Password">
+                </div>
+                
+                <div class="input-group">
+                    <label for="role">Login Sebagai</label>
+                    <select id="role" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;">
+                        <option value="">-- Pilih Role --</option>
+                        <option value="admin">Admin</option>
+                        <option value="guru">Guru</option>
+                        <option value="murid">Murid</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="login-btn" onclick="login()">Login</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // User data
+        const users = {
+            admin: [
+                {id: "admin1", name: "Admin Utama", password: "123"},
+                {id: "admin2", name: "Admin Sistem", password: "123"}
+            ],
+            guru: [
+                {id: "guru1", name: "Budi Santoso", password: "123"},
+                {id: "guru2", name: "Siti Aisyah", password: "123"},
+                {id: "guru3", name: "Ahmad Fadli", password: "123"}
+            ],
+            murid: [
+                {id: "murid1", name: "Andi Setiawan", password: "123"},
+                {id: "murid2", name: "Dewi Lestari", password: "123"},
+                {id: "murid3", name: "Rudi Gunawan", password: "123"},
+                {id: "murid4", name: "Fitra Ramadhan", password: "123"}
+            ]
+        };
+        
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const roleSelect = document.getElementById('role');
+            const selectedRole = roleSelect.value;
+            
+            if (!username || !password) {
+                alert('Silakan masukkan username dan password');
+                return;
+            }
+            
+            if (!selectedRole) {
+                alert('Silakan pilih role terlebih dahulu');
+                return;
+            }
+            
+            // Simple validation - check if username exists for selected role
+            const userExists = users[selectedRole].some(user => user.id === username && user.password === password);
+            
+            if (userExists) {
+                // Show loading overlay before redirecting
+                showLoading();
+                
+                // Get user data for welcome message
+                const user = users[selectedRole].find(user => user.id === username);
+                if (user) {
+                    // Store user name in localStorage for welcome message on dashboard
+                    localStorage.setItem('userName', user.name);
+                }
+                
+                // Determine redirect URL based on selected role
+                let redirectURL;
+                switch(selectedRole) {
+                    case 'admin':
+                        redirectURL = 'admin/dashboard-admin.html';
+                        break;
+                    case 'guru':
+                        redirectURL = 'guru/dashboard-guru.html';
+                        break;
+                    case 'murid':
+                        redirectURL = 'murid/dashboard-murid.html';
+                        break;
+                    default:
+                        redirectURL = 'index.html';
+                }
+                
+                // Redirect after 2.5 seconds (matching animation duration)
+                setTimeout(function() {
+                    window.location.href = redirectURL;
+                }, 2500);
+            } else {
+                alert('Username atau password tidak valid untuk role yang dipilih');
+            }
+        }
+        
+        // Function to show loading overlay
+        function showLoading() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('active');
+        }
+    </script>
+</body>
+</html>

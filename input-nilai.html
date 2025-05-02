@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Nilai - SMK Hang Tuah 1 Jakarta</title>
+    <link rel="stylesheet" href="asset/css/style.css">
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <h4>SMK Hang Tuah 1 Jakarta</h4>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+              <li><a href="pengumuman.html">Pengumuman</a></li>
+                <li><a href="data-siswa.html">Data Siswa</a></li>
+                <li><a href="input-nilai.html" class="active">Input Nilai</a></li>
+                <li><a href="jadwal.html">Jadwal</a></li>
+
+                <li><a href="#">Profil</a></li>
+            </ul>
+            
+            <div class="logout-btn">
+                <a href="index.html">Logout</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2>Input Nilai Siswa</h2>
+            
+            <div class="announcement-box">
+                <h3>Pilih Kelas dan Mata Pelajaran</h3>
+                <div style="display: flex; margin-top: 15px; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Kelas</label>
+                        <select id="kelasSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="XI PPLG 1">XI PPLG 1</option>
+                            <option value="XI PPLG 2">XI PPLG 2</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Mata Pelajaran</label>
+                        <select id="mapelSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">-- Pilih Mapel --</option>
+                            <option value="KKRPL">KKRPL</option>
+                            <option value="Pemrograman Dasar">Pemrograman Dasar</option>
+                        </select>
+                    </div>
+                     
+                    <div style="align-self: flex-end;">
+                        <button onclick="loadSiswa()" style="background-color: #0f3057; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Tampilkan</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="nilaiContainer" class="announcement-box">
+                <h3>Input Nilai Kelas XI PPLG 1 - Pemrograman Dasar</h3>
+                <form id="formNilai">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr style="background-color: #f2f2f2;">
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">No</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 1px solid #ddd;">Nama Siswa</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">Tugas</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UTS</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 1px solid #ddd;">UAS</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">1</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">Ahmad Fikri</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="80" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="85" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="88" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">2</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">Budi Santoso</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="75" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="80" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="85" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">3</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">Cindy Aulia</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="85" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="90" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="92" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">4</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">Deni Kusuma</td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="78" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="82" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                            <td style="padding: 12px; border-bottom: 1px solid #ddd;">
+                                <input type="number" min="0" max="100" value="87" style="width: 60px; padding: 5px; text-align: center;">
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button type="submit" id="simpanBtn" style="background-color: #0f3057; color: white; border: none; padding: 12px 30px; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">SIMPAN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function loadSiswa() {
+            const kelas = document.getElementById('kelasSelect').value;
+            const mapel = document.getElementById('mapelSelect').value;
+            
+            if (!kelas || !mapel) {
+                alert('Silakan pilih kelas dan mata pelajaran terlebih dahulu');
+                return;
+            }
+            
+            // Dalam implementasi sebenarnya, ini akan mengambil data dari server
+            // Contoh ini hanya simulasi UI
+            document.querySelector('#nilaiContainer h3').innerText = `Input Nilai Kelas ${kelas} - ${mapel}`;
+            
+            // Tampilkan container nilai jika tersembunyi
+            document.getElementById('nilaiContainer').style.display = 'block';
+        }
+        
+        document.getElementById('formNilai').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulasi penyimpanan data
+            alert('Data nilai berhasil disimpan!');
+        });
+    </script>
+</body>
+</html>
